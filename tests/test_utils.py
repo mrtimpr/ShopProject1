@@ -2,7 +2,7 @@ from typing import Generator
 
 import pytest
 
-from src.models import Category, Product
+from src.models import Category
 from src.utils import load_categories_from_json
 
 
@@ -22,23 +22,25 @@ def test_load_categories_from_json() -> None:
     category1 = categories[0]
     assert isinstance(category1, Category)
     assert category1.name == "Смартфоны"
-    assert len(category1.products) == 3
 
-    product1 = category1.products[0]
-    assert isinstance(product1, Product)
-    assert product1.name == "Samsung Galaxy C23 Ultra"
-    assert product1.price == 180000.0
-    assert product1.quantity == 5
+    products_str = category1.products
+    assert isinstance(products_str, str)
+
+    assert "Samsung Galaxy C23 Ultra" in products_str
+    assert "180000 руб." in products_str
+    assert "Остаток: 5 шт." in products_str
+
+    assert len(products_str.split("\n")) == 3
 
     category2 = categories[1]
     assert isinstance(category2, Category)
     assert category2.name == "Телевизоры"
-    assert len(category2.products) == 1
 
-    product2 = category2.products[0]
-    assert isinstance(product2, Product)
-    assert product2.name == '55" QLED 4K'
-    assert product2.price == 123000.0
+    products_str_2 = category2.products
+    assert '55" QLED 4K' in products_str_2
+    assert "123000 руб." in products_str_2
+
+    assert len(products_str_2.split("\n")) == 1
 
     assert Category.category_count == 2
     assert Category.product_count == 4
