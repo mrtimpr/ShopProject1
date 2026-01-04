@@ -13,6 +13,15 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self) -> str:
+        return f"{self.name}, {int(self.__price)} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other: object) -> float:
+        if not isinstance(other, Product):
+            return NotImplemented
+
+        return self.price * self.quantity + other.price * other.quantity
+
     @property
     def price(self) -> float:
         return self.__price
@@ -70,6 +79,10 @@ class Category:
         for product in products:
             self.add_product(product)
 
+    def __str__(self) -> str:
+        total_quantity = sum(product.quantity for product in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
+
     def add_product(self, product: Product) -> None:
         if not isinstance(product, Product):
             raise TypeError("Можно добавлять только объекты Product")
@@ -88,3 +101,23 @@ class Category:
         return "\n".join(
             f"{product.name}, {int(product.price)} руб. Остаток: {product.quantity} шт." for product in self.__products
         )
+
+    def get_products(self) -> list[Product]:
+        return self.__products
+
+
+class CategoryIterator:
+    def __init__(self, category: Category) -> None:
+        self._products = category.get_products()
+        self._index = 0
+
+    def __iter__(self) -> "CategoryIterator":
+        return self
+
+    def __next__(self) -> Product:
+        if self._index >= len(self._products):
+            raise StopIteration
+
+        product = self._products[self._index]
+        self._index += 1
+        return product
