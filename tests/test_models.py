@@ -2,7 +2,7 @@ from typing import Any, Dict, Generator, List
 
 import pytest
 
-from src.models import Category, Product
+from src.models import Category, CategoryIterator, Product
 
 
 @pytest.fixture(autouse=True)
@@ -10,6 +10,9 @@ def reset_category_counters() -> Generator[None, None, None]:
     Category.category_count = 0
     Category.product_count = 0
     yield
+
+
+# Product
 
 
 def test_product_initialization() -> None:
@@ -24,6 +27,26 @@ def test_product_initialization() -> None:
     assert product.description == "512GB, Gray space"
     assert product.price == 210000.0
     assert product.quantity == 8
+
+
+def test_product_str() -> None:
+    product = Product("Samsung", "Описание", 100000.0, 5)
+
+    assert str(product) == "Samsung, 100000 руб. Остаток: 5 шт."
+
+
+def test_product_add() -> None:
+    product1 = Product("A", "Описание", 100.0, 10)
+    product2 = Product("B", "Описание", 200.0, 2)
+
+    assert product1 + product2 == 1400
+
+
+def test_product_add_invalid_type() -> None:
+    product = Product("A", "Описание", 100.0, 1)
+
+    with pytest.raises(TypeError):
+        _ = product + 10  # type: ignore
 
 
 def test_product_price_setter_invalid_price(
@@ -98,6 +121,9 @@ def test_new_product_merges_duplicate(
     assert existing.price == 100000.0
 
 
+# Category
+
+
 def test_category_initialization_with_products() -> None:
     product1 = Product("Samsung", "Описание", 100000.0, 5)
     product2 = Product("Xiaomi", "Описание", 30000.0, 10)
@@ -116,6 +142,15 @@ def test_category_initialization_with_products() -> None:
     assert "Xiaomi, 30000 руб. Остаток: 10 шт." in products_str
 
 
+def test_category_str() -> None:
+    product1 = Product("Samsung", "Описание", 100000.0, 5)
+    product2 = Product("Xiaomi", "Описание", 30000.0, 10)
+
+    category = Category("Смартфоны", "Описание", [product1, product2])
+
+    assert str(category) == "Смартфоны, количество продуктов: 15 шт."
+
+
 def test_category_add_product() -> None:
     category = Category("Смартфоны", "Описание", [])
 
@@ -124,6 +159,13 @@ def test_category_add_product() -> None:
 
     assert "TV, 120000 руб. Остаток: 3 шт." in category.products
     assert Category.product_count == 1
+
+
+def test_category_add_invalid_product() -> None:
+    category = Category("Смартфоны", "Описание", [])
+
+    with pytest.raises(TypeError):
+        category.add_product("not a product")  # type: ignore
 
 
 def test_category_without_products() -> None:
@@ -144,3 +186,18 @@ def test_category_class_counters_multiple_categories() -> None:
 
     assert Category.category_count == 2
     assert Category.product_count == 3
+
+
+# CategoryIterator
+
+
+def test_category_iterator() -> None:
+    product1 = Product("Samsung", "Описание", 100000.0, 5)
+    product2 = Product("Iphone", "Описание", 200000.0, 7)
+
+    category = Category("Смартфоны", "Описание", [product1, product2])
+
+    iterator = CategoryIterator(category)
+    products = list(iterator)
+
+    assert products == [product1, product2]
