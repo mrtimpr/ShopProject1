@@ -2,7 +2,7 @@ from typing import Any, Dict, Generator, List
 
 import pytest
 
-from src.models import Category, CategoryIterator, Product
+from src.models import Category, CategoryIterator, LawnGrass, Product, Smartphone
 
 
 @pytest.fixture(autouse=True)
@@ -201,3 +201,77 @@ def test_category_iterator() -> None:
     products = list(iterator)
 
     assert products == [product1, product2]
+
+
+# Inheritance
+
+
+def test_smartphone_is_product() -> None:
+    phone = Smartphone(
+        "Samsung S23",
+        "Флагман",
+        100000.0,
+        5,
+        efficiency=9.5,
+        model="S23",
+        memory=256,
+        color="Черный",
+    )
+
+    assert isinstance(phone, Product)
+    assert phone.model == "S23"
+    assert phone.memory == 256
+
+
+def test_lawngrass_is_product() -> None:
+    grass = LawnGrass(
+        "Газон",
+        "Для дачи",
+        500.0,
+        10,
+        country="Россия",
+        germination_period=14,
+        color="Зеленый",
+    )
+
+    assert isinstance(grass, Product)
+    assert grass.country == "Россия"
+    assert grass.germination_period == 14
+
+
+# __add__
+
+
+def test_product_add_same_type() -> None:
+    p1 = Product("A", "Описание", 100.0, 2)
+    p2 = Product("B", "Описание", 200.0, 3)
+
+    result = p1 + p2
+
+    assert result == 100 * 2 + 200 * 3
+
+
+def test_smartphone_add_same_type() -> None:
+    phone1 = Smartphone("S23", "Флагман", 100000.0, 2, 9.5, "S23", 256, "Черный")
+    phone2 = Smartphone("S24", "Новый", 120000.0, 1, 9.8, "S24", 512, "Серый")
+
+    result = phone1 + phone2
+
+    assert result == 100000 * 2 + 120000 * 1
+
+
+def test_lawngrass_add_same_type() -> None:
+    grass1 = LawnGrass("Газон A", "Описание", 500.0, 10, "Россия", 14, "Зеленый")
+    grass2 = LawnGrass("Газон B", "Описание", 700.0, 5, "Россия", 10, "Темно-зеленый")
+
+    result = grass1 + grass2
+
+    assert result == 500 * 10 + 700 * 5
+
+
+def test_product_add_different_classes() -> None:
+    phone = Smartphone("S23", "Флагман", 100000.0, 2, 9.5, "S23", 256, "Черный")
+    grass = LawnGrass("Газон", "Для дачи", 500.0, 10, "Россия", 14, "Зеленый")
+
+    with pytest.raises(TypeError):
+        _ = phone + grass
