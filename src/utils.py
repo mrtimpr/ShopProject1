@@ -12,10 +12,10 @@ def load_categories_from_json(path: str) -> List[Category]:
     with open(path, "r", encoding="utf-8") as file:
         data: Any = json.load(file)
 
-    categories: List[Category] = []
-
     if not isinstance(data, list):
         return []
+
+    categories: List[Category] = []
 
     for category_data in data:
         if not isinstance(category_data, dict):
@@ -29,12 +29,16 @@ def load_categories_from_json(path: str) -> List[Category]:
                 if not isinstance(product_data, dict):
                     continue
 
-                product = Product(
-                    name=str(product_data.get("name", "")),
-                    description=str(product_data.get("description", "")),
-                    price=float(product_data.get("price", 0.0)),
-                    quantity=int(product_data.get("quantity", 0)),
+                product = Product.new_product(
+                    {
+                        "name": str(product_data.get("name", "")),
+                        "description": str(product_data.get("description", "")),
+                        "price": float(product_data.get("price", 0) or 0),
+                        "quantity": int(product_data.get("quantity", 0) or 0),
+                    },
+                    products,
                 )
+
                 products.append(product)
 
         category = Category(
