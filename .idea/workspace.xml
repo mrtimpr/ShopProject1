@@ -4,19 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f7dbdd5-da70-43a1-828a-732315628076" name="Changes" comment="Доработка функционала классов (добавлены классы наследующие Product) и тестов к ним.&#10;Обновил отчеты о покрытии тестами.">
-      <change afterPath="$PROJECT_DIR$/src/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/base.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/category.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/mixins.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ShopProject1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ShopProject1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="3f7dbdd5-da70-43a1-828a-732315628076" name="Changes" comment="Доработка функционала &#10;Создан базовый абстрактный класс с именем &#10;BaseProduct, &#10;Реализован класс-миксин и тестов к ним.&#10;Обновил отчеты о покрытии тестами.">
+      <change afterPath="$PROJECT_DIR$/src/exceptions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/category.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/category.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/mixins.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/mixins.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/product.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -269,7 +267,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768308272407</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Доработка функционала &#10;Создан базовый абстрактный класс с именем &#10;BaseProduct, &#10;Реализован класс-миксин и тестов к ним.&#10;Обновил отчеты о покрытии тестами.">
+      <option name="closed" value="true" />
+      <created>1768852652210</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1768852652211</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -291,7 +297,8 @@
     <MESSAGE value="Доработка функционала классов и тестов к ним.&#10;Залил отчеты о покрытии тестами." />
     <MESSAGE value="Доработка функционала классов и тестов к ним.&#10;Обновил отчеты о покрытии тестами." />
     <MESSAGE value="Доработка функционала классов (добавлены классы наследующие Product) и тестов к ним.&#10;Обновил отчеты о покрытии тестами." />
-    <option name="LAST_COMMIT_MESSAGE" value="Доработка функционала классов (добавлены классы наследующие Product) и тестов к ним.&#10;Обновил отчеты о покрытии тестами." />
+    <MESSAGE value="Доработка функционала &#10;Создан базовый абстрактный класс с именем &#10;BaseProduct, &#10;Реализован класс-миксин и тестов к ним.&#10;Обновил отчеты о покрытии тестами." />
+    <option name="LAST_COMMIT_MESSAGE" value="Доработка функционала &#10;Создан базовый абстрактный класс с именем &#10;BaseProduct, &#10;Реализован класс-миксин и тестов к ним.&#10;Обновил отчеты о покрытии тестами." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

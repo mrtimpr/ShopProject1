@@ -121,6 +121,19 @@ def test_new_product_merges_duplicate(
     assert existing.price == 100000.0
 
 
+def test_product_init_zero_quantity_raises_value_error() -> None:
+    with pytest.raises(
+        ValueError,
+        match="Товар с нулевым количеством не может быть добавлен",
+    ):
+        Product(
+            name="Бракованный товар",
+            description="Неверное количество",
+            price=1000.0,
+            quantity=0,
+        )
+
+
 # Category
 
 
@@ -186,6 +199,21 @@ def test_category_class_counters_multiple_categories() -> None:
 
     assert Category.category_count == 2
     assert Category.product_count == 3
+
+
+def test_category_average_price_with_products() -> None:
+    product1 = Product("A", "Описание", 100.0, 2)
+    product2 = Product("B", "Описание", 200.0, 3)
+
+    category = Category("Тестовая категория", "Описание", [product1, product2])
+
+    assert category.average_price() == (100.0 + 200.0) / 2
+
+
+def test_category_average_price_empty_category() -> None:
+    category = Category("Пустая категория", "Описание", [])
+
+    assert category.average_price() == 0
 
 
 # CategoryIterator
@@ -275,3 +303,6 @@ def test_product_add_different_classes() -> None:
 
     with pytest.raises(TypeError):
         _ = phone + grass
+
+
+#

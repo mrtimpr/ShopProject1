@@ -1,5 +1,5 @@
-from .product import Product, Smartphone, LawnGrass
 from .category import Category, CategoryIterator
+from .product import LawnGrass, Product, Smartphone
 
 __all__ = [
     "Product",

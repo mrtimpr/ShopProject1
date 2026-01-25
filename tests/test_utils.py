@@ -6,6 +6,8 @@ import pytest
 from src.models import Category
 from src.utils import load_categories_from_json
 
+from pathlib import Path
+
 
 @pytest.fixture(autouse=True)
 def reset_category_counters() -> Generator[None, None, None]:
@@ -14,11 +16,12 @@ def reset_category_counters() -> Generator[None, None, None]:
     yield
 
 
-def test_load_categories_from_json(tmp_path) -> None:
+def test_load_categories_from_json(tmp_path: Path) -> None:
     data = [
         {
             "name": "Смартфоны",
-            "description": "Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни",
+            "description": "Смартфоны, как средство не только коммуникации, "
+            "но и получение дополнительных функций для удобства жизни",
             "products": [
                 {
                     "name": "Samsung Galaxy C23 Ultra",
@@ -42,7 +45,8 @@ def test_load_categories_from_json(tmp_path) -> None:
         },
         {
             "name": "Телевизоры",
-            "description": "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
+            "description": "Современный телевизор, который позволяет наслаждаться просмотром, "
+            "станет вашим другом и помощником",
             "products": [
                 {
                     "name": '55" QLED 4K',
