@@ -27,5 +27,5 @@ class BaseProduct(ABC):
 
 class BaseEntity(ABC):
     @abstractmethod
-    def total_price(self):
+    def total_price(self) -> None:
         pass

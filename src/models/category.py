@@ -1,5 +1,7 @@
 from typing import Iterator, List
 
+from src.exceptions import ZeroQuantityError
+
 from .product import Product
 
 
@@ -30,8 +32,18 @@ class Category:
         if not isinstance(product, Product):
             raise TypeError("Можно добавлять только продукты или их наследников")
 
-        self.__products.append(product)
-        Category.product_count += 1
+        try:
+            if product.quantity == 0:
+                raise ZeroQuantityError("Нельзя добавить товар с нулевым количеством")
+
+            self.__products.append(product)
+            Category.product_count += 1
+        except ZeroQuantityError as e:
+            print(e)
+        else:
+            print("Товар успешно добавлен")
+        finally:
+            print("Обработка добавления товара завершена")
 
     @property
     def products(self) -> str:
@@ -42,6 +54,13 @@ class Category:
 
     def get_products(self) -> List[Product]:
         return self.__products
+
+    def average_price(self) -> float:
+        try:
+            total_price = sum(product.price for product in self.__products)
+            return total_price / len(self.__products)
+        except ZeroDivisionError:
+            return 0
 
 
 class CategoryIterator:
